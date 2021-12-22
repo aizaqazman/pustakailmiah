@@ -1,0 +1,108 @@
+/* Product Page */
+.small-img-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.small-img-col {
+    flex-basis: 24%;
+    cursor: pointer;
+}
+
+.sproduct select{
+    display: block;
+    padding: 5px 10px;
+}
+
+.sproduct input {
+    width: 60px;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.sproduct input:focus {
+    outline: none;
+}
+
+.buy-btn {
+    background: #813533;
+    opacity: 1;
+    transition: 0.3s;
+    color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.buy-btn:hover {
+    background: #50211f;
+}
+
+/* End */
+
+/* Navbar + Footer */
+
+.min-vh-50 {
+min-height: 50vh !important;
+}
+
+@media (min-width: 768px) {
+.vw-md-40 {
+    width: 40vw !important;
+}
+}
+
+.item-text {
+overflow-wrap: break-word;
+}
+
+.footer-item-img {
+width: 100px;
+height: 100px;
+}
+
+.bg-grey-77 {
+background-color: #777777;
+}
+
+.bg-maroon {
+background-color: #813533;
+}
+
+.text-maroon {
+color: #813533;
+}
+
+.bg-grey-5b {
+background-color: #5b5b5b;
+}
+
+.socmed {
+font-size: 1.5em;
+}
+
+.socmed .fab:hover,
+.socmed .far:hover,
+.news-link:hover {
+color: #813533 !important;
+}
+
+.payment-icon {
+font-size: 2.5em;
+}
+
+.btn:hover {
+background-color: #50211f !important;
+}
+
+.cart {
+font-size: 1.5em;
+}
+
+.cart:hover {
+color: #50211f !important;
+}
+
+/* End */
