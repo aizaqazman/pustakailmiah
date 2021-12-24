@@ -1,0 +1,16 @@
+.product-img {
+  width: 300px;
+  height: 300px;
+}
+
+.card {
+  min-height: 500px;
+}
+
+.category-link {
+  color: black !important;
+}
+
+.category-link:hover {
+  color: #813533 !important;
+}
