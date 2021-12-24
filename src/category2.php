@@ -3,7 +3,7 @@
     <head>
       <meta charset="UTF-8">
       <title>category2</title>
-      <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="category.css">
       <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     </head>
     <body>
