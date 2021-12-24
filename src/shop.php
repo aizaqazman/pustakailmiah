@@ -47,7 +47,7 @@ while($row = $result_category -> fetch_assoc()) {
 
       <div class="col-12 col-lg-4 bg-light">
 
-        <h4 class="text-bold">BROWSE</h4>
+        <h4 class="text-bold">browse</h4>
         <hr>
 
         
