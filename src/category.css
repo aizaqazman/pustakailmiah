@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+:root{
+    --Montserrat: 'Montserrat', sans-serif;
+    --Playfair: 'Playfair Display', serif;
+    --Quicksand: 'Quicksand', sans-serif;
+    --Roboto: 'Roboto', sans-serif;
+    --black: #080506;
+    --dark: #2B1B17;
+    --exDark: #3B2F2F;
+    --light: #F9F9F9;
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: var(--Quicksand);
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    line-height: 1.4;
+    color: var(--dark);
+}
+img{
+    width: 80%;
+    height: 50%;
+    display: block;
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 0 0  20rem;
+}
+
+
+/* blog */
+.blog{
+    background: #f9f9f9;
+    padding: 4.5rem 0;
+}
+.blog-content{
+    margin: 2rem 0;
+}
+
+.blog-text{
+    margin: 0.5rem 0;
+    padding: 0 .5rem;
+}
+.blog-text h2{
+    font-family: var(--Montserrat);
+    padding: .1rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+.blog-text p{
+    font-weight: 400;
+    font-size: .9rem;
+    padding-bottom: 1.2rem;
+}
+.blog-text a{
+    font-family: var(--Roboto);
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--dark);
+    display: inline-block;
+    background: var(--dark);
+    color: #fff;
+    padding: 0.55rem 1.2rem;
+    transition: all 0.5s ease;
+}
+.blog-text a:hover{
+    background: var(--exDark);
+}
+
+/*paginaton*/
+
+.pagination{
+    position: absolute;
+    width: 100%;
+    left: 8%;
+    text-align: center;
+    transform: translateY(-50%);
+}
+
+.pagination a{
+    margin: 6px 1px;
+    display: inline-block;
+    width: 60px;
+    background: rgb(39, 38, 38);
+    height: 60px;
+    line-height: 60px;
+    color: rgb(236, 222, 222);
+    font-weight: 600;
+    transition: 0.3s;
+    position: relative;
+    padding-right: 26px;
+    
+    
+}
+
+.pagination a:hover{
+    color: #e74c3c;
+}
+
+.active{
+    color: #e74c3c !important;
+}
+
+.prev{
+    border-radius: 30px 0 0 30px;
+    padding-left: 20px;
+}
+
+.next{
+    border-radius: 0 30px 30px 0;
+}
+
+.pagination a::before,.pagination a:after{
+    content: "";
+    position: absolute;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+}
+
+
+
+
+/* Media Queries */
+@media screen and (min-width: 540px){
+    .navbar-nav a{
+        padding-right: 1.2rem;
+        padding-left: 1.2rem;
+    }
+    .banner-title{
+        font-size: 5rem;
+    }
+    .banner form{
+        margin-top: 1.4rem;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+}
+
+@media screen and (min-width: 768px){
+    .momchef-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .navbar .container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .search-input{
+        padding: 0.8rem 0;
+    }
+    .blog-content{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+}
+
+@media screen and (min-width: 992px){
+    .blog-content{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .about-content{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 3rem;
+        align-items: center;
+    }
+    
+}
