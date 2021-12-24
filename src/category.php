@@ -3,7 +3,7 @@
     <head>
       <meta charset="UTF-8">
       <title>Side Navigation Bar</title>
-      <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" href="category.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
       <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     </head>
