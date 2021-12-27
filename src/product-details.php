@@ -42,8 +42,8 @@ $category_name = $row_cat['category'];
 </head>
 <body>
     <!-- Navbar -->
-  <div id="navbar"></div>
-  <!-- End of Navbar -->
+    <div id="navbar"></div>
+    <!-- End of Navbar -->
 
     <!-- Product -->
     <section class="container sproduct">

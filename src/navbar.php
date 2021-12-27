@@ -20,7 +20,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2 link-dark">Home</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+          <li><a href="about.php" class="nav-link px-2 link-dark">About</a></li>
           <li><a href="shop.php" class="nav-link px-2 link-dark">Shop</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Blog</a></li>
           <li><a href="contact.php" class="nav-link px-2 link-dark">Contact</a></li>
