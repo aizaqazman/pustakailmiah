@@ -2,33 +2,46 @@
 
 include 'dbconn.php';
 
-if (empty($_GET)) {
-  $stmt = $conn -> prepare('SELECT * FROM `products`');
+if(empty($_GET)) {
+  header("Location: shop.php");
+  die();
+  exit();
+} 
+else if (isset($_GET['category']) && !isset($_GET['orderby'])){
+  $category = mysqli_real_escape_string($conn, $_GET['category']);
+  $stmt = $conn -> prepare('SELECT * FROM products WHERE cat_id = (SELECT id FROM category WHERE category = ?)');
+  $stmt -> bind_param('s', $category);
   $stmt -> execute();
 } 
-else if (isset($_GET['orderby'])) {
+else if (isset($_GET['category']) && isset($_GET['orderby'])){
+  $category = mysqli_real_escape_string($conn, $_GET['category']);
   $orderby = mysqli_real_escape_string($conn, $_GET['orderby']);
   // if ($orderby === "popularity") {
-  //   $stmt = $conn -> prepare('SELECT * FROM products ORDER BY popularity DESC');
+  //   $stmt = $conn -> prepare('SELECT * FROM products WHERE cat_id = (SELECT id FROM category WHERE category = ?) ORDER BY popularity DESC');
+  //   $stmt -> bind_param('s', $category);
   //   $stmt -> execute();
   // }
   // else if ($orderby === "rating") {
-  //   $stmt = $conn -> prepare('SELECT * FROM products ORDER BY rating DESC');
+  //   $stmt = $conn -> prepare('SELECT * FROM products WHERE cat_id = (SELECT id FROM category WHERE category = ?) ORDER BY rating DESC');
+  //   $stmt -> bind_param('s', $category);
   //   $stmt -> execute();
   // }
   // else if ($orderby === "latest") {
-  //   $stmt = $conn -> prepare('SELECT * FROM products ORDER BY latest DESC');
+  //   $stmt = $conn -> prepare('SELECT * FROM products WHERE cat_id = (SELECT id FROM category WHERE category = ?) ORDER BY latest DESC');
+  //   $stmt -> bind_param('s', $category);
   //   $stmt -> execute();
   // }
   /*else*/ if ($orderby === "price") {
-    $stmt = $conn -> prepare('SELECT * FROM products ORDER BY price ASC');
+    $stmt = $conn -> prepare('SELECT * FROM products WHERE cat_id = (SELECT id FROM category WHERE category = ?) ORDER BY price ASC');
+    $stmt -> bind_param('s', $category);
     $stmt -> execute();
   }
   else if ($orderby === "priceDesc") {
-    $stmt = $conn -> prepare('SELECT * FROM products ORDER BY price DESC');
+    $stmt = $conn -> prepare('SELECT * FROM products WHERE cat_id = (SELECT id FROM category WHERE category = ?) ORDER BY price DESC');
+    $stmt -> bind_param('s', $category);
     $stmt -> execute();
   } else {
-    header("Location: shop.php");
+    header("Location: product-category.php?category=".$category);
     die();
     exit();
   }
@@ -36,7 +49,6 @@ else if (isset($_GET['orderby'])) {
 
 $result = $stmt -> get_result();
 $stmt -> close();
-
 
 $stmt = $conn -> prepare('SELECT * FROM `category`');
 $stmt -> execute();
@@ -96,8 +108,10 @@ while($row = $result_category -> fetch_assoc()) {
         <div class="col-12 col-lg-8">
 
           <div class="align-content-start">
+          
             <div class="input-group mb-3">
               <form method="get" class="d-flex text-end justify-content-end">
+                <input type="hidden" name="category" value="<?php echo $category; ?>">
                 <label class="input-group-text" for="inputGroupSelect01">Sort By</label>
                 <select onchange="this.form.submit()" name="orderby" class="form-select" id="inputGroupSelect01">
                   <option value="" selected>Default</option>
@@ -123,10 +137,14 @@ while($row = $result_category -> fetch_assoc()) {
                 </select>
               </form>
             </div>
+
           </div>
 
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
             <?php
+            if(!($result -> num_rows > 0)) {
+              echo "<p class='lead'>No item in this category</p>";
+            }
             while($row = $result -> fetch_assoc()) {
               $category_id = $row['cat_id'];
               $category_name = "";
@@ -153,6 +171,7 @@ while($row = $result_category -> fetch_assoc()) {
             ?>  
 
           </div>
+
         </div>
 
       </div>
