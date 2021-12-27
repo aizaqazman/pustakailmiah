@@ -154,14 +154,17 @@ while($row = $result_category -> fetch_assoc()) {
                   $category_name = $values['category'];
                 }
               };
-
             ?>
             <div class="col">
               <div class="card" style="width: 16rem;">
-                <img src="product_img/<?php echo $row['image_name']; ?>" class="card-img-top product-img" alt="...">
+                <a href="product-details.php?product=<?php echo $row['title']; ?>" class="text-decoration-none text-black">
+                  <img src="product_img/<?php echo $row['image_name']; ?>" class="card-img-top product-img" alt="...">
+                </a>
                 <div class="card-body">
                   <p class="text-muted m-0 p-0"><?php echo $category_name ?></p>
-                  <p class="card-text m-0 p-0"><?php echo $row['title']; ?></p>
+                  <a href="product-details.php?product=<?php echo $row['title']; ?>" class="text-decoration-none text-black">
+                    <p class="card-text m-0 p-0 product-title"><?php echo $row['title']; ?></p>
+                  </a>
                   <strong><p class="card-text m-0 p-0">RM <?php echo $row['price']; ?></p></strong>
                 </div>
               </div>
@@ -190,6 +193,19 @@ while($row = $result_category -> fetch_assoc()) {
   <script>
     $("#footer").load("footer.php"); 
     $("#navbar").load("navbar.php"); 
+
+    $(document).ready(function () {
+      $(".card").hover(
+        function () {
+          $(this).addClass("card-hover");
+          console.log('hover');
+        },
+        function () {
+          $(this).removeClass("card-hover");
+          console.log('end-hover');
+        }
+      );
+    });
   </script>
 </body>
 </html>

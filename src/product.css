@@ -143,3 +143,7 @@ font-size: 1.5em;
 .cart:hover {
 color: #50211f !important;
 }
+
+.hover-red:hover {
+color: #B22222 !important;
+}

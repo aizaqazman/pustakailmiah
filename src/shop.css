@@ -3,14 +3,24 @@
   height: 300px;
 }
 
-.card {
-  min-height: 500px;
-}
-
 .category-link {
   color: black !important;
 }
 
 .category-link:hover {
   color: #813533 !important;
+}
+
+.card {
+  transition: 0.3s;
+  min-height: 500px;
+}
+
+.card-hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-3px);
+}
+
+.product-title:hover {
+  color: #B22222;
 }
