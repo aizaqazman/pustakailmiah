@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-8">
                   <div class="ms-2">
                     <h6 class="fw-light"><?php echo htmlspecialchars($values['title']); ?></h6>
-                    <p><span class="d-md-none"><?php echo htmlspecialchars($values['order_qty']); ?>x </span><strong>RM <?php echo htmlspecialchars($values['price_per']); ?></strong></p>
+                    <p><span class="d-md-none"><?php echo htmlspecialchars($values['order_qty']); ?>× </span><strong>RM <?php echo htmlspecialchars($values['price_per']); ?></strong></p>
                   </div>
                 </div>
                 
