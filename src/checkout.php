@@ -71,10 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="d-flex justify-content-center">
           <a href="cart.php" class="text-decoration-none text-black hover-red">
-            <h2 class="fw-light mb-5 mx-2">Shopping Cart</h2>
+            <h2 class="fw-light mb-5 mx-2 d-none d-md-inline">Shopping Cart</h2>
           </a>
           <h2><i class="fw-light fas fa-angle-right mb-5 mx-2 d-none d-md-inline"></i></h2>
-          <h2 class="fw-light mb-5 mx-2 d-none d-md-inline">Checkout</h2>
+          <h2 class="fw-light mb-5 mx-2">Checkout</h2>
           <h2><i class="fw-light fas fa-angle-right mb-5 mx-2 cart-text-muted d-none d-md-inline"></i></h2>
           <h2 class="fw-light mb-5 mx-2 cart-text-muted d-none d-md-inline">Order Complete</h2>
         </div>
@@ -101,23 +101,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
               </div>
               <div class="col-md-12">
-                <label for="validationFirstName" class="form-label">Company name</label>
-                <input type="text" class="form-control" id="validationFirstName" name="first_name" required>
+                <label for="validationFirstName" class="form-label">Company name(optional)</label>
+                <input type="text" class="form-control" id="validationFirstName" name="first_name">
                 <div class="invalid-feedback">
                   Please enter a company name.
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label for="phone_number" class="form-label">Phone number</label>
                 <div class="input-group has-validation">
                   <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-phone-alt"></i></span>
-                  <input type="text" class="form-control" id="phone_number" aria-describedby="inputGroupPrepend" name="phone_number" required>
+                  <input type="tel" class="form-control" id="phone_number" aria-describedby="inputGroupPrepend" name="phone_number" required>
                   <div class="invalid-feedback phone">
                     Please provide a valid phone number.
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <label for="validationEmail" class="form-label">Email</label>
                 <div class="input-group has-validation">
                   <span class="input-group-text" id="inputGroupPrepend"><i class="far fa-envelope"></i></span>
@@ -128,10 +128,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="validationAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="validationAddress" name="address" required>
+                <label for="validationAddress1" class="form-label">Address 1</label>
+                <input type="text" class="form-control" id="validationAddress1" name="address1" required>
                 <div class="invalid-feedback">
                   Please provide an address
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="validationAddress2" class="form-label">Address 2</label>
+                <input type="text" class="form-control" id="validationAddress2" name="address2">
+                <div class="invalid-feedback">
+                  Please provide an address
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="state" class="form-label">State</label>
+                <input type="text" class="form-control" id="state" name="state" required>
+                <div class="invalid-feedback">
+                  Please provide a state.
                 </div>
               </div>
               <div class="col-md-3">
@@ -162,6 +176,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <div class="col-md-3">
                 <label for="zip" class="form-label">Zip</label>
                 <input type="text" class="form-control" id="zip" name="zip" required>
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label for="orderNotes" class="form-label">Order Notes(optional)</label>
+                <textarea type="text" class="form-control" id="orderNotes" name="orderNotes"></textarea>
                 <div class="invalid-feedback">
                   Please provide a valid zip.
                 </div>
