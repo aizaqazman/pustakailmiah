@@ -115,9 +115,9 @@ while($row = $result_category -> fetch_assoc()) {
                 <label class="input-group-text" for="inputGroupSelect01">Sort By</label>
                 <select onchange="this.form.submit()" name="orderby" class="form-select" id="inputGroupSelect01">
                   <option value="" selected>Default</option>
-                  <option value="popularity">Popularity</option>
+                  <!-- <option value="popularity">Popularity</option>
                   <option value="rating">Average rating</option>
-                  <option value="latest">Latest</option>
+                  <option value="latest">Latest</option> -->
                   <option value="price" 
                     <?php
                     if(isset($_GET['orderby'])){
