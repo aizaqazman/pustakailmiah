@@ -163,9 +163,9 @@ if(isset($_POST['addToCart'])) {
     $("#footer").load("footer.php"); 
     $("#navbar").load("navbar.php");
 
-    function showToast(message){
+    function showToast(msg){
       var toast = new bootstrap.Toast($('#toast'));
-      $('.toast-body').html(message);
+      $('.toast-body').html(msg);
       toast.show();
     }
 
