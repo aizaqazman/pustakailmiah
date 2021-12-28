@@ -127,9 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <div class="d-flex">
                 <form method="post" class="d-flex">
                   <input type="hidden" name="id" value="<?php echo htmlspecialchars($values['id']); ?>">
-                  <button type="submit" name="btnMinus" class="btnQtyControl"><i class="far qty-control fa-minus-square"></i></button>
+                  <button type="submit" name="btnMinus" class="btnQtyControl"><i class="far qty-control fa-minus-square hover-red"></i></button>
                   <input id="qtyInput" type="number" value="<?php echo htmlspecialchars($values['order_qty']); ?>" class="form-control qty-input" name="order_qty" readonly required>
-                  <button type="submit" name="btnPlus" class="btnQtyControl"><i class="far qty-control fa-plus-square"></i></button>
+                  <button type="submit" name="btnPlus" class="btnQtyControl"><i class="far qty-control fa-plus-square hover-red"></i></button>
                 </form>
               </div>
               <div class="text-center d-md-none mx-auto mt-4">
