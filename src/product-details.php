@@ -61,7 +61,6 @@ if(isset($_POST['addToCart'])) {
 
   $item_data = json_encode($cart_data);
   $success = setcookie('shopping_cart', $item_data, time() + (86400 * 30));
-
   
   if($success) {
     $message = "x" . $_POST['order_qty'] . " " . $_POST['title'] . " has been successfully added to cart!";
