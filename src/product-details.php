@@ -28,7 +28,9 @@ $stmt -> close();
 $row_cat = $result_cat -> fetch_assoc();
 $category_name = $row_cat['category'];
 
+$message = "";
 if(isset($_POST['addToCart'])) {
+  $success = false;
   if(isset($_COOKIE['shopping_cart'])) {
     $cookie_data = stripslashes($_COOKIE['shopping_cart']);
     $cart_data = json_decode($cookie_data, true);
@@ -56,9 +58,16 @@ if(isset($_POST['addToCart'])) {
     );
     $cart_data[] = $item_array;
   }
-  var_dump($cart_data);
+
   $item_data = json_encode($cart_data);
-  setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+  $success = setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+
+  
+  if($success) {
+    $message = "x" . $_POST['order_qty'] . " " . $_POST['title'] . " has been successfully added to cart!";
+  } else {
+    $message = "Something went wrong.";
+  }
 }
 
 ?>
@@ -131,17 +140,36 @@ if(isset($_POST['addToCart'])) {
   
   <hr>
 
+
+  <!-- Toast -->
+  <div id="toast" class="toast align-items-center text-white bg-maroon border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <!-- Toast message here -->
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+  <!-- End of Toast -->
+
+
   <!-- Footer -->
   <div id="footer"></div>
   <!-- End of Footer -->
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script>
     $("#footer").load("footer.php"); 
     $("#navbar").load("navbar.php");
 
-    $(document).ready(function () {
+    function showToast(message){
+      var toast = new bootstrap.Toast($('#toast'));
+      $('.toast-body').html(message);
+      toast.show();
+    }
 
+    $(document).ready(function () {
       $(".card").hover(
         function () {
           $(this).addClass("card-hover");
@@ -172,6 +200,12 @@ if(isset($_POST['addToCart'])) {
           $('#qtyInput').val(--qty);
         }
       });
+
+      // display toast message
+      var message = "<?php echo $message; ?>";
+      if(!(message == "")) {
+        showToast(message);
+      }
 
     });
   </script>

@@ -60,3 +60,9 @@ input[type=number] {
   font-size: 30px;
   font-weight: lighter !important;
 }
+
+#toast {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}

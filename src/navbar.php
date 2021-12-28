@@ -1,3 +1,17 @@
+<?php
+$total = 0;
+if(isset($_COOKIE['shopping_cart'])) {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+  $cart_data = json_decode($cookie_data, true);
+
+  foreach($cart_data as $keys => $values) {
+    $total++;
+  }
+}
+
+$cart_item_total = htmlspecialchars($total);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +47,7 @@
         <div class="dropdown text-end">
           <button class="btn btn-maroon text-white">Login</button>
           <a href="cart.php" class="btn btn-maroon">
-            <i class="fas fa-shopping-cart p-0 me-2"></i><span id="cart-num-badge" class="badge bg-primary">0</span>
+            <i class="fas fa-shopping-cart p-0 me-2"></i><span id="cart-num-badge" class="badge bg-white text-black"><?php echo $cart_item_total; ?></span>
           </a>
           <!-- <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
