@@ -138,7 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
               </div>
               <div class="text-center d-md-none mx-auto mt-4">
-                <button type="button" class="btnRemoveCartItem"><i class="far fa-trash-alt hover-red"></i></button>
+                <form method="post" class="d-inline">
+                  <input type="hidden" name="id" value="<?php echo htmlspecialchars($values['id']); ?>">
+                  <button type="submit" name="removeItem" class="btnRemoveCartItem"><i class="far fa-trash-alt hover-red"></i></button>
+                </form>
               </div>
             </div>
             <div class="col-2 d-none d-md-inline">
