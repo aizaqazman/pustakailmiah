@@ -44,17 +44,17 @@ if(isset($_POST['addToCart'])) {
     foreach($cart_data as $keys => $values) {
       if($cart_data[$keys]['id'] == $_POST['id']) {
         $cart_data[$keys]['order_qty'] += mysqli_real_escape_string($conn, $_POST['order_qty']);
-        $cart_data[$keys]['total_pro_price'] += mysqli_real_escape_string($conn, ($_POST['price_per'] * $_POST['order_qty']));
+        $cart_data[$keys]['subtotal'] += mysqli_real_escape_string($conn, ($_POST['price_per'] * $_POST['order_qty']));
       }
     }
   } else {
     $item_array = array(
-      'id'              => mysqli_real_escape_string($conn, $_POST['id']),
-      'title'           => mysqli_real_escape_string($conn, $_POST['title']),
-      'price_per'       => mysqli_real_escape_string($conn, $_POST['price_per']),
-      'order_qty'       => mysqli_real_escape_string($conn, $_POST['order_qty']),
-      'total_pro_price' => mysqli_real_escape_string($conn, ($_POST['price_per'] * $_POST['order_qty'])),
-      'image_name'      => mysqli_real_escape_string($conn, $_POST['image_name'])
+      'id'          => mysqli_real_escape_string($conn, $_POST['id']),
+      'title'       => mysqli_real_escape_string($conn, $_POST['title']),
+      'price_per'   => mysqli_real_escape_string($conn, $_POST['price_per']),
+      'order_qty'   => mysqli_real_escape_string($conn, $_POST['order_qty']),
+      'subtotal' => mysqli_real_escape_string($conn, ($_POST['price_per'] * $_POST['order_qty'])),
+      'image_name'  => mysqli_real_escape_string($conn, $_POST['image_name'])
     );
     $cart_data[] = $item_array;
   }
