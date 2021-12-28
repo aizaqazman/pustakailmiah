@@ -115,12 +115,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           ?>
           <div class="row mb-2">
             <div class="col-8 col-md-6">
-              <div class="d-flex">
-                <img src="product_img/<?php echo htmlspecialchars($values['image_name']); ?>" alt="" class="img-thumbnail cart-item-img">
-                <div class="ms-2">
-                  <h4 class="fw-light"><?php echo htmlspecialchars($values['title']); ?></h4>
-                  <p><span class="d-md-none"><?php echo htmlspecialchars($values['order_qty']); ?>x </span><strong>RM <?php echo htmlspecialchars($values['price_per']); ?></strong></p>
+              <div class="row">
+                <div class="col-4">
+                  <img src="product_img/<?php echo htmlspecialchars($values['image_name']); ?>" alt="" class="img-thumbnail">
                 </div>
+                <div class="col-8">
+                  <div class="ms-2">
+                    <h6 class="fw-light"><?php echo htmlspecialchars($values['title']); ?></h6>
+                    <p><span class="d-md-none"><?php echo htmlspecialchars($values['order_qty']); ?>x </span><strong>RM <?php echo htmlspecialchars($values['price_per']); ?></strong></p>
+                  </div>
+                </div>
+                
               </div>
             </div>
             <div class="col-4 col-md-3">

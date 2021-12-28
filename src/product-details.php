@@ -117,9 +117,9 @@ if(isset($_POST['addToCart'])) {
             <input type="hidden" name="price_per" value="<?php echo $row['price']; ?>" required>
             <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>" required>
             <div class="d-flex my-3">
-              <button type="button" id="btnMinus" class="btnQtyControl"><i class="far qty-control fa-minus-square"></i></button>
+              <button type="button" id="btnMinus" class="btnQtyControl"><i class="far qty-control fa-minus-square hover-red"></i></button>
               <input id="qtyInput" type="number" value="1" class="form-control qty-input" name="order_qty" readonly required>
-              <button type="button" id="btnPlus" class="btnQtyControl"><i class="far qty-control fa-plus-square"></i></button>
+              <button type="button" id="btnPlus" class="btnQtyControl"><i class="far qty-control fa-plus-square hover-red"></i></button>
             </div>
             <button class="btn bg-maroon text-white" type="submit" name="addToCart">Add To Cart</button>
           </form>

@@ -68,11 +68,6 @@ input[type=number] {
   right: 15px;
 }
 
-.cart-item-img {
-  width: 100px !important;
-  height: 100px !important;
-}
-
 .cart-text-muted {
   --bs-text-opacity: 1;
   color: #b9bcbe !important;
