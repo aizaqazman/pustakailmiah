@@ -31,9 +31,9 @@
         </form>
 
         <div class="dropdown text-end">
-          <button class="btn bg-maroon text-white">Login</button>
-          <a href="cart.php" class="text-decoration-none text-maroon">
-            <i class="cart fas fa-shopping-cart mx-2"></i>
+          <button class="btn btn-maroon text-white">Login</button>
+          <a href="cart.php" class="btn btn-maroon">
+            <i class="fas fa-shopping-cart p-0 me-2"></i><span id="cart-num-badge" class="badge bg-primary">0</span>
           </a>
           <!-- <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">

@@ -47,14 +47,13 @@
   font-size: 2.5em;
 }
 
-.btn:hover {
-  background-color: #50211f !important;
+.btn-maroon {
+  color: #fff;
+  background-color: #813533;
+  border-color: #813533;
 }
-
-.cart {
-  font-size: 1.5em;
-}
-
-.cart:hover {
-  color: #50211f !important;
+.btn-maroon:hover {
+  color: #fff;
+  background-color: #50211f;
+  border-color: #3d1918;
 }
