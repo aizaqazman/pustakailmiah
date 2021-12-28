@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 18, 2021 at 08:20 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Dec 28, 2021 at 06:24 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,7 +89,7 @@ CREATE TABLE `products` (
   `id` int(12) NOT NULL,
   `cat_id` int(12) NOT NULL COMMENT 'category id',
   `title` varchar(200) NOT NULL,
-  `price` varchar(20) NOT NULL,
+  `price` decimal(6,2) NOT NULL,
   `description` varchar(500) NOT NULL,
   `image_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
