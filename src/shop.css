@@ -46,6 +46,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.btnRemoveCartItem,
 .btnQtyControl {
   background: none;
 	color: inherit;
@@ -65,4 +66,9 @@ input[type=number] {
   position: fixed;
   bottom: 15px;
   right: 15px;
+}
+
+.cart-item-img {
+  width: 100px !important;
+  height: 100px !important;
 }
