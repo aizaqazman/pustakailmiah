@@ -28,6 +28,39 @@ $stmt -> close();
 $row_cat = $result_cat -> fetch_assoc();
 $category_name = $row_cat['category'];
 
+if(isset($_POST['addToCart'])) {
+  if(isset($_COOKIE['shopping_cart'])) {
+    $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+    $cart_data = json_decode($cookie_data, true);
+  } else {
+    $cart_data = array();
+  }
+
+  $id_list = array_column($cart_data, 'id');
+
+  if(in_array($_POST['id'], $id_list)) {
+    foreach($cart_data as $keys => $values) {
+      if($cart_data[$keys]['id'] == $_POST['id']) {
+        $cart_data[$keys]['order_qty'] += mysqli_real_escape_string($conn, $_POST['order_qty']);
+        $cart_data[$keys]['total_pro_price'] += mysqli_real_escape_string($conn, ($_POST['price_per'] * $_POST['order_qty']));
+      }
+    }
+  } else {
+    $item_array = array(
+      'id'              => mysqli_real_escape_string($conn, $_POST['id']),
+      'title'           => mysqli_real_escape_string($conn, $_POST['title']),
+      'price_per'       => mysqli_real_escape_string($conn, $_POST['price_per']),
+      'order_qty'       => mysqli_real_escape_string($conn, $_POST['order_qty']),
+      'total_pro_price' => mysqli_real_escape_string($conn, ($_POST['price_per'] * $_POST['order_qty'])),
+      'image_name'      => mysqli_real_escape_string($conn, $_POST['image_name'])
+    );
+    $cart_data[] = $item_array;
+  }
+  var_dump($cart_data);
+  $item_data = json_encode($cart_data);
+  setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,13 +102,19 @@ $category_name = $row_cat['category'];
           <h2 class="display-5"> <?php echo $row['title']; ?> </h2>
           <hr>
           <strong><h2>RM <?php echo $row['price']; ?></h2></strong>
-          <div class="d-flex my-3">
-            <button type="button" id="btnMinus" class="btnQtyControl"><i class="far qty-control fa-minus-square"></i></button>
-            <input id="qtyInput" type="number" value="1" class="form-control qty-input" disabled>
-            <button type="button" id="btnPlus" class="btnQtyControl"><i class="far qty-control fa-plus-square"></i></button>
-          </div>
-          <button class="btn bg-maroon text-white"> Add To Cart </button>
-
+          <form method="post">
+            <input type="hidden" name="id" value="<?php echo $row['id']; ?>" required>
+            <input type="hidden" name="title" value="<?php echo $row['title']; ?>" required>
+            <input type="hidden" name="price_per" value="<?php echo $row['price']; ?>" required>
+            <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>" required>
+            <div class="d-flex my-3">
+              <button type="button" id="btnMinus" class="btnQtyControl"><i class="far qty-control fa-minus-square"></i></button>
+              <input id="qtyInput" type="number" value="1" class="form-control qty-input" name="order_qty" readonly required>
+              <button type="button" id="btnPlus" class="btnQtyControl"><i class="far qty-control fa-plus-square"></i></button>
+            </div>
+            <button class="btn bg-maroon text-white" type="submit" name="addToCart">Add To Cart</button>
+          </form>
+          
           <hr>
           <h4 class="mt-3 mb-3"> Product Description </h4>
           <p> 
