@@ -72,3 +72,20 @@ input[type=number] {
   width: 100px !important;
   height: 100px !important;
 }
+
+.cart-text-muted {
+  --bs-text-opacity: 1;
+  color: #b9bcbe !important;
+}
+
+.btn-orange {
+  color: #fff !important;
+  background-color: #d36c4b !important;
+  border-color: #d36c4b !important;
+}
+
+.btn-orange:hover {
+  color: #fff !important;
+  background-color: #b65f41 !important;
+  border-color: #ad5234 !important;
+}
