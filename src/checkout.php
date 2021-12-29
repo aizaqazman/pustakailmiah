@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <hr>
 
           <div class="bg-light p-3">
-            <form id="checkoutForm" class="row g-3 needs-validation" action="checkout-process.php" method="post" novalidate>
+            <form id="buyerForm" class="row g-3 needs-validation" action="checkout-process.php" method="post" novalidate>
               <div class="col-md-6">
                 <label for="validationFirstName" class="form-label">First name</label>
                 <input type="text" class="form-control" id="validationFirstName" name="first_name" required>
@@ -215,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <hr class="p-0 m-0" style="height: 2px;">
 
-          <form id="orderSummary" method="post">
+          <form id="orderForm" method="post">
             <?php
             $subtotal = 0.0;
             $cart_total_price = 0.0;
@@ -280,7 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <hr class="p-0 m-0 mb-3" style="height: 3px;">
           </form>
 
-          <button class="btn btn-orange p-2 w-100 fs-5" form="orderSummary">Place Order</button>
+          <button class="btn btn-orange p-2 w-100 fs-5" form="buyerForm">Place Order</button>
           <p class="text-muted p-2">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
 
         </div>
@@ -370,6 +370,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $(this).addClass('was-validated');
       });
       
+      function submitForm(){
+        $('#buyerForm').submit();
+        $('#orderForm').submit();
+      }
     });
   </script>
 </body>
