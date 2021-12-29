@@ -289,7 +289,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
             </p>
           </div>
-          
 
           <button class="btn btn-orange p-2 w-100 fs-5" onclick="submitForm()">Place Order</button>
           <p class="text-muted p-2">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
