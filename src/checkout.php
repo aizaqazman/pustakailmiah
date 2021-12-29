@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="shop.css">
   <title>Pustaka Ilmiah</title>
 </head>
@@ -87,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <hr>
 
           <div class="bg-light p-3">
-            <form id="buyerForm" class="row g-3 needs-validation" action="checkout-process.php" method="post" novalidate>
+            <form id="buyerForm" class="row g-3 needs-validation" method="post" novalidate>
               <div class="col-md-6">
                 <label for="validationFirstName" class="form-label">First name</label>
                 <input type="text" class="form-control" id="validationFirstName" name="first_name" required>
@@ -103,8 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
               </div>
               <div class="col-md-12">
-                <label for="validationFirstName" class="form-label">Company name(optional)</label>
-                <input type="text" class="form-control" id="validationFirstName" name="first_name">
+                <label for="validationCompanyName" class="form-label">Company name(optional)</label>
+                <input type="text" class="form-control" id="validationCompanyName" name="company_name">
                 <div class="invalid-feedback">
                   Please enter a company name.
                 </div>
@@ -183,8 +184,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
               </div>
               <div class="col-md-12">
-                <label for="orderNotes" class="form-label">Order Notes(optional)</label>
-                <textarea type="text" class="form-control" id="orderNotes" name="orderNotes"></textarea>
+                <label for="order_notes" class="form-label">Order Notes(optional)</label>
+                <textarea type="text" class="form-control" id="order_notes" name="order_notes"></textarea>
                 <div class="invalid-feedback">
                   Please provide a valid zip.
                 </div>
@@ -215,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <hr class="p-0 m-0" style="height: 2px;">
 
-          <form id="orderForm" method="post">
+          <form id="orderForm" method="post" action="checkout-process.php?action=orderForm" >
             <?php
             $subtotal = 0.0;
             $cart_total_price = 0.0;
@@ -253,7 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- Input fields -->
             <input type="hidden" name="cart_total_price" value="<?php echo $cart_total_price; ?>">
             <input type="hidden" name="shipping_fee" value="<?php echo $shipping_fee; ?>">
-            <input type="hidden" name="order_total_price" value="<?php echo $cart_total_price + $shipping_fee; ?>">
+            <input type="hidden" name="order_final_amount" value="<?php echo $cart_total_price + $shipping_fee; ?>">
 
             <div class="d-flex justify-content-between py-3">
               <p class="fw-bold">Subtotal</p>
@@ -280,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <hr class="p-0 m-0 mb-3" style="height: 3px;">
           </form>
 
-          <button class="btn btn-orange p-2 w-100 fs-5" form="buyerForm">Place Order</button>
+          <button class="btn btn-orange p-2 w-100 fs-5" onclick="submitForm()">Place Order</button>
           <p class="text-muted p-2">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
 
         </div>
@@ -295,7 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
 
   <!-- Toast -->
-  <div id="toast" class="toast align-items-center text-white bg-maroon border-0" role="alert" aria-live="assertive" aria-atomic="true">
+  <div id="toast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
       <div class="toast-body">
         <!-- Toast message here -->
@@ -306,9 +307,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- End of Toast -->
 
 
+  <!-- Spinner -->
+  <div id="spinner">
+    <div class="spinner-loader spinner-border text-maroon" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <!-- End of Spinner -->
+
+
   <!-- Footer -->
   <div id="footer"></div>
   <!-- End of Footer -->
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script>
@@ -322,27 +333,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $(document).ready(function () {
-      $(".card").hover(
-        function () {
-          $(this).addClass("card-hover");
-          console.log('hover');
-        },
-        function () {
-          $(this).removeClass("card-hover");
-          console.log('end-hover');
-        }
-      );
 
-      <?php if(isset($_GET['message'])){ ?>
-        var message = "<?php echo $_GET['message']; ?>";
-        if(!(message == "")) {
-          showToast(message);
+      $('#spinner').hide();
+
+      // submitting buyerForm first. If successful, submit orderForm
+      submitForm = function(){
+        const form = $("#buyerForm");
+        if (!(form[0].checkValidity())) {
+          form.addClass('was-validated'); 
+          return false;
         }
-      <?php
+
+        const phone_number = $('#phone_number');
+        if(isNaN(phone_number.val()) || phone_number.val().length < 10) {
+          showToast("Please provide a valid phone number!");
+          phone_number.val("");
+          form.addClass('was-validated');
+          return false;
+        }
+
+        const zip = $('#zip');
+        if(isNaN(zip.val()) || zip.val().length < 5) {
+          showToast("Please provide a valid zip code!");
+          zip.val("");
+          form.addClass('was-validated');
+          return false;
+        }
+        
+        var values = form.serialize();
+        console.log(values);
+
+        $.ajax({ 
+          url: 'checkout-process.php?action=buyerForm',
+          type: 'post',
+          data: form.serialize(),
+          beforeSend: function() {
+            $('#spinner').show();
+          },
+          success: function(response) {
+            setTimeout(function() {
+              if(response == 1) {
+                console.log(response);
+                $('#orderForm').submit();
+              }
+              else {
+                showToast("Something went wrong. Please contact our support for help.");
+              }
+              $('#spinner').fadeOut("xfast");
+            }, 2000);
+          },
+          error: function(err, status) { console.log(err);}
+        });
       }
-      ?>
 
       // form validation
+      // function formValidation(e) {
+      //   const form = $("#buyerForm");
+      //   if (form[0].checkValidity()) {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     return false;
+      //   }
+
+      //   const phone_number = $('#phone_number');
+      //   if(isNaN(phone_number.val()) || phone_number.val().length < 10) {
+      //     phone_number.get(0).setCustomValidity("Invalid field.");
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     return false;
+      //   } else {
+      //     phone_number.get(0).setCustomValidity("");
+      //   }
+
+      //   const zip = $('#zip');
+      //   if(isNaN(zip.val()) || zip.val().length < 5) {
+      //     zip.get(0).setCustomValidity("Invalid field.");
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     return false;
+      //   } else {
+      //     zip.get(0).setCustomValidity("");
+      //   }
+
+      //   form.addClass('was-validated');
+
+      //   return true;
+      // }
       $('.needs-validation').on('submit', function(e) {
         if (!this.checkValidity()) {
           e.preventDefault();
@@ -368,12 +444,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $(this).addClass('was-validated');
+
       });
-      
-      function submitForm(){
-        $('#buyerForm').submit();
-        $('#orderForm').submit();
-      }
+
     });
   </script>
 </body>
