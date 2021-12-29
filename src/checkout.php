@@ -280,6 +280,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <hr class="p-0 m-0 mb-3" style="height: 3px;">
           </form>
+          
+          <div class="d-inline-block">
+            <p class="text-muted p-2">Payment method:<br>
+              <div class="bg-light text-center p-0 rounded">
+                <input type="radio" id="fpx" name="fpx" value="fpx" checked>
+                <img src="img/Logo-FPX-small.png" alt="" class="img-fluid">
+              </div>
+            </p>
+          </div>
+          
 
           <button class="btn btn-orange p-2 w-100 fs-5" onclick="submitForm()">Place Order</button>
           <p class="text-muted p-2">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>

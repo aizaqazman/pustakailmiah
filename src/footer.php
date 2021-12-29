@@ -231,9 +231,7 @@
         <a class="text-reset fw-bold" href="#">website.com</a>
       </div>
       <div>
-        <i class="payment-icon mx-1 fab fa-cc-visa"></i>
-        <i class="payment-icon mx-1 fab fa-cc-mastercard"></i>
-        <i class="payment-icon mx-1 fas fa-money-check"></i>
+        <img src="img/Logo-FPX-xsmall.png" alt="" class="img-fluid">
       </div>
     </div>
     <!-- Copyright -->
