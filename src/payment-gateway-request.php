@@ -11,9 +11,9 @@ $result = $stmt -> get_result();
 $stmt -> close();
 $row = $result -> fetch_assoc();
 echo "Order ID: ".$order_id;
-echo "<br><br>Jangan uncomment api request data, tu betul2 payment gateway, kalau nak test sekali 2 kali takpe, jangan byk kali"
+echo "<br><br>Jangan uncomment API request bawah tu, tu betul2 payment gateway, kalau nak test sekali 2 kali takpe, jangan byk kali";
 
-// // api request data
+// // API request data
 // $post_data = array(
 //     'userSecretKey'           => $secret_key,
 //     'categoryCode'            => $category_code,
