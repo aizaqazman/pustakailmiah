@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2021 at 06:24 AM
+-- Generation Time: Dec 29, 2021 at 08:52 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -24,16 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Table structure for table `buyers`
 --
 
-CREATE TABLE `cart` (
-  `id` int(12) NOT NULL,
-  `book_id` int(12) NOT NULL,
-  `book_title` varchar(200) NOT NULL,
-  `price` varchar(20) NOT NULL,
-  `quantity` int(12) NOT NULL,
-  `subtotal` varchar(20) NOT NULL
+CREATE TABLE `buyers` (
+  `buyer_id` char(14) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address1` varchar(255) NOT NULL,
+  `address2` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(15) NOT NULL,
+  `zip` varchar(5) NOT NULL,
+  `order_notes` varchar(255) NOT NULL,
+  `terms_and_conditions` char(3) NOT NULL COMMENT 'yes/no'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -73,10 +80,26 @@ INSERT INTO `category` (`id`, `category`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` int(12) NOT NULL,
-  `cart_id` int(12) NOT NULL,
-  `orderDate` date NOT NULL,
-  `total_amount` varchar(100) NOT NULL
+  `order_id` char(21) NOT NULL,
+  `buyer_id` char(14) NOT NULL,
+  `transaction_id` char(22) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `cart_total_price` decimal(7,2) NOT NULL,
+  `order_final_amount` decimal(7,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `order_id` char(21) NOT NULL,
+  `item_id` int(12) NOT NULL,
+  `quantity` int(3) NOT NULL,
+  `subtotal_price` decimal(7,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -125,11 +148,10 @@ INSERT INTO `products` (`id`, `cat_id`, `title`, `price`, `description`, `image_
 --
 
 --
--- Indexes for table `cart`
+-- Indexes for table `buyers`
 --
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `book_id` (`book_id`);
+ALTER TABLE `buyers`
+  ADD PRIMARY KEY (`buyer_id`);
 
 --
 -- Indexes for table `category`
@@ -141,24 +163,27 @@ ALTER TABLE `category`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `buyer_id` (`buyer_id`,`transaction_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `cart_id` (`cart_id`);
+  ADD KEY `order_id` (`order_id`,`item_id`),
+  ADD KEY `item_id` (`item_id`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cat_id` (`cat_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -167,16 +192,39 @@ ALTER TABLE `category`
   MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT for table `order_items`
 --
-ALTER TABLE `orders`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`buyer_id`) REFERENCES `buyers` (`buyer_id`);
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `products` (`id`);
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
