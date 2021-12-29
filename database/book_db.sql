@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2021 at 05:17 PM
+-- Generation Time: Dec 29, 2021 at 07:44 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -80,9 +80,9 @@ INSERT INTO `category` (`id`, `category`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `order_id` char(22) NOT NULL,
+  `order_id` char(27) NOT NULL,
   `buyer_id` char(15) NOT NULL,
-  `transaction_id` char(23) NOT NULL,
+  `billRef_no` char(28) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `cart_total_price` decimal(7,2) NOT NULL,
   `shipping_fee` decimal(5,2) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
-  `order_id` char(22) NOT NULL,
+  `order_id` char(27) NOT NULL,
   `item_id` int(12) NOT NULL,
   `quantity` int(3) NOT NULL,
   `subtotal_price` decimal(7,2) NOT NULL
@@ -144,6 +144,21 @@ INSERT INTO `products` (`id`, `cat_id`, `title`, `price`, `description`, `image_
 (20, 11, 'Seni Mengubah Nasib', '15.00', 'READY STOCK ‼‼\r\nPOS SETIAP HARI 🔮🔮\r\n📖 Seni Mengubah Nasib\r\n📖 oleh Charles Saputra\r\n🎀🎀 Harga : RM15\r\nSINOPSIS🎗\r\nSesiapa pun boleh berubah dalam hidupnya; daripada bodoh menjadi genius, daripada miskin menjadi kaya, atau daripada hina menjadi terhormat. Syaratnya adalah perlu menjalani proses yang sepatutnya dan berusaha keras untuk mencapai perubahan yang diinginkan. Semua perkara dapat diubah. Namun ada satu perkara yang tidak boleh berubah, iaitu perubahan itu sendiri.\r\nBuku Seni Mengubah Nasib', 'seni_mengubah_nasib.jpg'),
 (21, 11, 'Ubah Patah Hati Jadi Prestasi', '40.00', 'READY STOCK ‼‼\r\nPOS SETIAP HARI 🔮🔮\r\n📖 Ubah Patah Hati Jadi Prestasi\r\n📖 oleh Addien Abdul Kadir & Dwi Suwiknyo\r\n🎀🎀 Harga : RM40\r\nSINOPSIS🎗\r\nUrusan hati adalah antara urusan yang paling susah untuk difahami. Kerana pada seketul hati ada sebuah kitaran kejam yang manusia sering terikat tanpa sudah. Hati yang kecewa cenderung membawa kepada prestasi yang negatif. Manakala prestasi yang negatif akan menambah kedukaan hati. Namun sebaliknya, jika kita berjaya mengubah sebuah kekecewaan menjadi hati po', 'ubah_patah_hati_jadi_prestasi.jpg');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `billRef_no` char(28) NOT NULL,
+  `billcode` char(50) NOT NULL,
+  `payment_status` char(1) NOT NULL COMMENT '1=success, 2=pending, 3=fail',
+  `amount` decimal(7,2) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `transaction_timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -165,7 +180,8 @@ ALTER TABLE `category`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
-  ADD KEY `buyer_id` (`buyer_id`,`transaction_id`);
+  ADD KEY `buyer_id` (`buyer_id`,`billRef_no`),
+  ADD KEY `billRef_no` (`billRef_no`);
 
 --
 -- Indexes for table `order_items`
@@ -183,6 +199,12 @@ ALTER TABLE `products`
   ADD KEY `cat_id` (`cat_id`);
 
 --
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`billRef_no`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -196,7 +218,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -212,7 +234,8 @@ ALTER TABLE `products`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`buyer_id`) REFERENCES `buyers` (`buyer_id`);
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`buyer_id`) REFERENCES `buyers` (`buyer_id`),
+  ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`billRef_no`) REFERENCES `transactions` (`billRef_no`);
 
 --
 -- Constraints for table `order_items`
