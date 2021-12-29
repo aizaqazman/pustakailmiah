@@ -41,8 +41,10 @@ $result = $stmt -> get_result();
 $stmt -> close();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
+  var_dump($_POST);
+  $uniqueId= time().'-'.mt_rand();
+  echo $uniqueId."<br>";
+  echo uniqid().date("Ymdhis");
 }
 
 ?>
@@ -142,10 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="state" class="form-label">State</label>
-                <input type="text" class="form-control" id="state" name="state" required>
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" required>
                 <div class="invalid-feedback">
-                  Please provide a state.
+                  Please provide a city.
                 </div>
               </div>
               <div class="col-md-3">
@@ -213,48 +215,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <hr class="p-0 m-0" style="height: 2px;">
 
-          <?php
-          while($row = $result -> fetch_assoc()){
-          ?>
-          <div class="row py-1">
-            <div class="col-8">
-              <p class="text-muted"><?php echo $row['title']; ?> <span class="fw-bold">×1</span></p>
+          <form id="orderSummary" method="post">
+            <?php
+            $subtotal = 0.0;
+            $cart_total_price = 0.0;
+            $shipping_fee = 8.0;
+            while($row = $result -> fetch_assoc()){
+              $qty = 0;
+              $item_price_per = 0.0;
+              foreach($item_array as $keys => $values){
+                if($row['id'] == $values['id']) {
+                  $qty = $values['order_qty'];
+                }
+              }
+              $subtotal = $row['price'] * $qty;
+              $cart_total_price += $subtotal;
+            ?>
+            <!-- Input fields -->
+            <input type="hidden" name="id[]" value="<?php echo $row['id']; ?>">
+            <input type="hidden" name="qty[]" value="<?php echo $qty; ?>">
+            <input type="hidden" name="subtotal[]" value="<?php echo $subtotal; ?>">
+            
+            <!-- display in order summary -->
+            <div class="row py-1">
+              <div class="col-8">
+                <p class="text-muted"><?php echo $row['title']; ?> <span class="fw-bold">×<?php echo $qty; ?></span></p>
+              </div>
+              <div class="col-4 text-end">
+                <strong><p>RM <?php echo number_format($subtotal, 2); ?></p></strong>
+              </div>
             </div>
-            <div class="col-4 text-end">
-              <strong><p>RM <?php echo number_format($row['price'], 2); ?></p></strong>
-            </div>
-          </div>
-          <hr class="p-0 m-0" style="height: 0.1px;">
-          <?php
-          }
-          ?>
+            <hr class="p-0 m-0" style="height: 0.1px;">
+            <?php 
+            }
+            ?>
 
-          <div class="d-flex justify-content-between py-3">
-            <p class="fw-bold">Subtotal</p>
-            <div class="text-end">
-              <strong><p>RM <?php //echo number_format($total_price, 2); ?></p></strong>
-            </div>
-          </div>
-          <hr class="p-0 m-0" style="height: 0.1px;">
+            <!-- Input fields -->
+            <input type="hidden" name="cart_total_price" value="<?php echo $cart_total_price; ?>">
+            <input type="hidden" name="shipping_fee" value="<?php echo $shipping_fee; ?>">
+            <input type="hidden" name="order_total_price" value="<?php echo $cart_total_price + $shipping_fee; ?>">
 
-          <div class="d-flex justify-content-between py-3">
-            <p class="fw-bold">Shipping Fee</p>
-            <div class="text-end">
-              <strong><p>RM 8.00</p></strong>
+            <div class="d-flex justify-content-between py-3">
+              <p class="fw-bold">Subtotal</p>
+              <div class="text-end">
+                <strong><p>RM <?php echo number_format($cart_total_price, 2); ?></p></strong>
+              </div>
             </div>
-          </div>
-          <hr class="p-0 m-0" style="height: 3px;">
+            <hr class="p-0 m-0" style="height: 0.1px;">
 
-          <div class="d-flex justify-content-between py-1">
-            <p class="fw-bold">Total</p>
-            <div class="text-end">
-              <h5>RM <?php //echo number_format($total_price + 8.00, 2); ?></h5>
+            <div class="d-flex justify-content-between py-3">
+              <p class="fw-bold">Shipping Fee</p>
+              <div class="text-end">
+                <strong><p>RM 8.00</p></strong>
+              </div>
             </div>
-          </div>
-          <hr class="p-0 m-0 mb-3" style="height: 3px;">
+            <hr class="p-0 m-0" style="height: 3px;">
 
-          <button class="btn btn-orange p-2 w-100 fs-5" form="checkoutForm">Place Order</button>
+            <div class="d-flex justify-content-between py-1">
+              <h5 class="fw-bold">Total</h5>
+              <div class="text-end">
+                <h5>RM <?php echo number_format($cart_total_price + $shipping_fee, 2); ?></h5>
+              </div>
+            </div>
+            <hr class="p-0 m-0 mb-3" style="height: 3px;">
+          </form>
+
+          <button class="btn btn-orange p-2 w-100 fs-5" form="orderSummary">Place Order</button>
           <p class="text-muted p-2">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+
         </div>
 
       </div>
