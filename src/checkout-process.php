@@ -12,6 +12,7 @@ if(isset($_GET['action'])) {
 }
 
 if($action == 'buyerForm') {
+  // insert data into buyers
   $buyer_id = mysqli_real_escape_string($conn, "B".date("Ymdhis"));
   $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
   $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
@@ -59,27 +60,42 @@ if($action == 'buyerForm') {
 } 
 else if($action == 'orderForm') {
   if(isset($_SESSION['buyer_id'])){
+    // create transaction bill details
+    $billRef_no = mysqli_real_escape_string($conn, "T".uniqid().date("Ymdhis"));
+    $amount = mysqli_real_escape_string($conn, $_POST['order_final_amount']);
+    $transaction_timestamp = "";
+
+    $stmt = $conn -> prepare('INSERT INTO `transactions`(`billRef_no`, `amount`, `transaction_timestamp`) VALUES(?, ?, ?)');
+    $stmt -> bind_param(
+      'sds', 
+      $billRef_no,
+      $amount,
+      $transaction_timestamp
+    );
+    $result_transaction_query = $stmt -> execute();
+    $stmt -> close();
+
+    // insert data into orders
     $order_id = mysqli_real_escape_string($conn, date("Ymdhis").uniqid());
     $buyer_id = mysqli_real_escape_string($conn, $_SESSION['buyer_id']);
-    $transaction_id = "";
     $cart_total_price = mysqli_real_escape_string($conn, $_POST['cart_total_price']);
     $shipping_fee = mysqli_real_escape_string($conn, $_POST['shipping_fee']);
     $order_final_amount = mysqli_real_escape_string($conn, $_POST['order_final_amount']);
 
-    $stmt = $conn -> prepare('INSERT INTO `orders`(`order_id`, `buyer_id`, `transaction_id`, `cart_total_price`, `shipping_fee`, `order_final_amount`) VALUES(?, ?, ?, ?, ?, ?)');
+    $stmt = $conn -> prepare('INSERT INTO `orders`(`order_id`, `buyer_id`, `billRef_no`, `cart_total_price`, `shipping_fee`, `order_final_amount`) VALUES(?, ?, ?, ?, ?, ?)');
     $stmt -> bind_param(
       'sssddd', 
       $order_id,
       $buyer_id,
-      $transaction_id,
+      $billRef_no,
       $cart_total_price,
       $shipping_fee,
       $order_final_amount
     );
-    $stmt -> execute();
-    $result_order_query = $stmt;
+    $result_order_query = $stmt -> execute();
     $stmt -> close();
 
+    // insert data into order_items
     for ($i = 0; $i < count($_POST['id']); $i++) {
       $id = mysqli_real_escape_string($conn, $_POST['id'][$i]);
       $qty = mysqli_real_escape_string($conn, $_POST['qty'][$i]);
@@ -93,16 +109,17 @@ else if($action == 'orderForm') {
         $qty,
         $subtotal
       );
-      $stmt -> execute();
-      $result_order_items_query = $stmt;
+      $result_order_items_query = $stmt -> execute();
       $stmt -> close();
     }
 
-    if($result_order_query && $result_order_items_query) {
+    if($result_transaction_query && $result_order_query && $result_order_items_query) {
+
       unset($_SESSION['buyer_id']);
       $_SESSION['order_id'] = $order_id;
       $success = false;
 
+      // add order_id to orders_list cookie
       if(isset($_COOKIE['orders_list'])) {
         $cookie_data = stripslashes($_COOKIE['orders_list']);
         $order_data = json_decode($cookie_data, true);
@@ -120,7 +137,7 @@ else if($action == 'orderForm') {
 
       if($success) {
         echo "order successfully created";
-        header("Location: order-response.php");
+        header("Location: payment-gateway-request.php");
         die();
       } 
       else {
