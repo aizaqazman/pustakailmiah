@@ -83,7 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="d-flex justify-content-center">
           <h2 class="fw-light mb-5 mx-2">Shopping Cart</h2>
           <h2><i class="fw-light fas fa-angle-right mb-5 mx-2 cart-text-muted d-none d-md-inline"></i></h2>
-          <h2 class="fw-light mb-5 mx-2 cart-text-muted d-none d-md-inline">Checkout</h2>
+          <a href="checkout.php" class="text-decoration-none text-black hover-red">
+            <h2 class="fw-light mb-5 mx-2 cart-text-muted d-none d-md-inline hover-red">Checkout</h2>
+          </a>
           <h2><i class="fw-light fas fa-angle-right mb-5 mx-2 cart-text-muted d-none d-md-inline"></i></h2>
           <h2 class="fw-light mb-5 mx-2 cart-text-muted d-none d-md-inline">Order Complete</h2>
         </div>
