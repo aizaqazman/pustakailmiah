@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2021 at 08:52 AM
+-- Generation Time: Dec 29, 2021 at 05:17 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `buyers` (
-  `buyer_id` char(14) NOT NULL,
+  `buyer_id` char(15) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `company_name` varchar(255) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `buyers` (
   `state` varchar(15) NOT NULL,
   `zip` varchar(5) NOT NULL,
   `order_notes` varchar(255) NOT NULL,
-  `terms_and_conditions` char(3) NOT NULL COMMENT 'yes/no'
+  `agree_terms_conditions` char(3) NOT NULL COMMENT 'yes/no'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -80,11 +80,12 @@ INSERT INTO `category` (`id`, `category`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `order_id` char(21) NOT NULL,
-  `buyer_id` char(14) NOT NULL,
-  `transaction_id` char(22) NOT NULL,
-  `datetime` datetime NOT NULL,
+  `order_id` char(22) NOT NULL,
+  `buyer_id` char(15) NOT NULL,
+  `transaction_id` char(23) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `cart_total_price` decimal(7,2) NOT NULL,
+  `shipping_fee` decimal(5,2) NOT NULL,
   `order_final_amount` decimal(7,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -96,7 +97,7 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
-  `order_id` char(21) NOT NULL,
+  `order_id` char(22) NOT NULL,
   `item_id` int(12) NOT NULL,
   `quantity` int(3) NOT NULL,
   `subtotal_price` decimal(7,2) NOT NULL
@@ -217,8 +218,8 @@ ALTER TABLE `orders`
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `order_items_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`);
 
 --
 -- Constraints for table `products`
