@@ -77,10 +77,28 @@ else if($action == 'orderForm') {
       $order_final_amount
     );
     $stmt -> execute();
-    $result = $stmt;
+    $result_order_query = $stmt;
     $stmt -> close();
 
-    if($result) {
+    for ($i = 0; $i < count($_POST['id']); $i++) {
+      $id = mysqli_real_escape_string($conn, $_POST['id'][$i]);
+      $qty = mysqli_real_escape_string($conn, $_POST['qty'][$i]);
+      $subtotal = mysqli_real_escape_string($conn, $_POST['subtotal'][$i]);
+  
+      $stmt = $conn -> prepare('INSERT INTO `order_items`(`order_id`, `item_id`, `quantity`, `subtotal_price`) VALUES(?, ?, ?, ?)');
+      $stmt -> bind_param(
+        'ssdd',
+        $order_id,
+        $id,
+        $qty,
+        $subtotal
+      );
+      $stmt -> execute();
+      $result_order_items_query = $stmt;
+      $stmt -> close();
+    }
+
+    if($result_order_query && $result_order_items_query) {
       unset($_SESSION['buyer_id']);
       $_SESSION['order_id'] = $order_id;
       $success = false;
