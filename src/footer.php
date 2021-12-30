@@ -13,16 +13,17 @@
   <section class="min-vh-50 w-100 p-3">
     <div class="container">
       <div class="row">
+
+        <!-- start Latest -->
         <div class="col-12 col-md-6 col-lg">
           <p class="fw-bold text-muted">LATEST</p>
           <hr>
-
           <!-- Item -->
           <a href="#" class="text-decoration-none text-black">
             <div class="shadow-sm m-1">
               <div class="d-flex">
                 <div class="w-25">
-                  <img src="img/5-768x1024.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                  <img src="product_img/bestseller_agama.jpg" alt="" class="img-thumbnail footer-item-img m-1">
                 </div>
                 <div class="ml-2">
                   <p class="mx-2 item-text">KEMBALI KEPADA JAWI : PANDAI MEMBACA DAN MENULIS JAWI DALAM MASA 20 JAM</p>
@@ -32,24 +33,55 @@
             </div>
           </a>
           <!-- End of Item -->
-
           <!-- Item -->
           <a href="#" class="text-decoration-none text-black">
             <div class="shadow-sm m-1">
               <div class="d-flex">
                 <div class="w-25">
-                  <img src="img/25.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                  <img src="product_img/motivasi_umum.jpg" alt="" class="img-thumbnail footer-item-img m-1">
                 </div>
                 <div class="ml-2">
-                  <p class="mx-2 item-text">Ubah Patah Hati Jadi Prestasi</p>
-                  <p class="mx-2 fw-bold">RM40.00</p>
+                  <p class="mx-2 item-text">Etika Profesionalisme - SIRI KOLEJ VOKASIONAL </p>
+                  <p class="mx-2 fw-bold">RM21.90</p>
                 </div>
               </div>
             </div>
           </a>
           <!-- End of Item -->
-
+          <!-- Item -->
+          <a href="#" class="text-decoration-none text-black">
+            <div class="shadow-sm m-1">
+              <div class="d-flex">
+                <div class="w-25">
+                  <img src="product_img/kelab_penulis_muda.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                </div>
+                <div class="ml-2">
+                  <p class="mx-2 item-text">IMTIYAZ UPKK LATIH TUBI : JAWI DAN KHAT</p>
+                  <p class="mx-2 fw-bold">RM6.90</p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <!-- End of Item -->
+          <!-- Item -->
+          <a href="#" class="text-decoration-none text-black">
+            <div class="shadow-sm m-1">
+              <div class="d-flex">
+                <div class="w-25">
+                  <img src="product_img/icon.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                </div>
+                <div class="ml-2">
+                  <p class="mx-2 item-text">Nota Padat UPKK : Edisi Lengkap Terkini 2021</p>
+                  <p class="mx-2 fw-bold">RM14.50</p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <!-- End of Item -->
         </div>
+        <!-- End of latest -->
+
+        <!-- Start best selling -->
         <div class="col-12 col-md-6 col-lg">
           <p class="fw-bold text-muted">BEST SELLING</p>
           <hr>
@@ -58,11 +90,11 @@
             <div class="shadow-sm m-1">
               <div class="d-flex">
                 <div class="w-25">
-                  <img src="img/25.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                  <img src="product_img/belajar_sunah_Nabi.jpg" alt="" class="img-thumbnail footer-item-img m-1">
                 </div>
                 <div class="ml-2">
-                  <p class="mx-2 item-text">Ubah Patah Hati Jadi Prestasi</p>
-                  <p class="mx-2 fw-bold">RM40.00</p>
+                  <p class="mx-2 item-text">24 Jam Belajar Sunah Nabi</p>
+                  <p class="mx-2 fw-bold">RM18.00</p>
                 </div>
               </div>
             </div>
@@ -73,17 +105,50 @@
             <div class="shadow-sm m-1">
               <div class="d-flex">
                 <div class="w-25">
-                  <img src="img/5-768x1024.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                  <img src="product_img/Komik_M.jpg" alt="" class="img-thumbnail footer-item-img m-1">
                 </div>
                 <div class="ml-2">
-                  <p class="mx-2 item-text">KEMBALI KEPADA JAWI : PANDAI MEMBACA DAN MENULIS JAWI DALAM MASA 20 JAM</p>
-                  <p class="mx-2 fw-bold">RM5.00</p>
+                  <p class="mx-2 item-text">Filosofi Rerama</p>
+                  <p class="mx-2 fw-bold">RM28.00</p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <!-- End of Item -->
+           <!-- Item -->
+           <a href="#" class="text-decoration-none text-black">
+            <div class="shadow-sm m-1">
+              <div class="d-flex">
+                <div class="w-25">
+                  <img src="product_img/islam_kata_isteri_bukan_bibik.png" alt="" class="img-thumbnail footer-item-img m-1">
+                </div>
+                <div class="ml-2">
+                  <p class="mx-2 item-text">Islam Kata Isteri Bukan Bibik</p>
+                  <p class="mx-2 fw-bold">RM20.00</p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <!-- End of Item -->
+           <!-- Item -->
+           <a href="#" class="text-decoration-none text-black">
+            <div class="shadow-sm m-1">
+              <div class="d-flex">
+                <div class="w-25">
+                  <img src="product_img/essay_SPM.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                </div>
+                <div class="ml-2">
+                  <p class="mx-2 item-text">Essay Writing Made Easy SPM (2020)</p>
+                  <p class="mx-2 fw-bold">RM15.90</p>
                 </div>
               </div>
             </div>
           </a>
           <!-- End of Item -->
         </div>
+        <!-- End of best selling -->
+
+        <!-- Start top rated -->
         <div class="col-12 col-md-6 col-lg">
           <p class="fw-bold text-muted">TOP RATED</p>
           <hr>
@@ -92,11 +157,11 @@
             <div class="shadow-sm m-1">
               <div class="d-flex">
                 <div class="w-25">
-                  <img src="img/25.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                  <img src="product_img/belajar_sunah_Nabi.jpg" alt="" class="img-thumbnail footer-item-img m-1">
                 </div>
                 <div class="ml-2">
-                  <p class="mx-2 item-text">Ubah Patah Hati Jadi Prestasi</p>
-                  <p class="mx-2 fw-bold">RM40.00</p>
+                  <p class="mx-2 item-text">24 Jam Belajar Sunah Nabi</p>
+                  <p class="mx-2 fw-bold">RM18.00</p>
                 </div>
               </div>
             </div>
@@ -107,17 +172,33 @@
             <div class="shadow-sm m-1">
               <div class="d-flex">
                 <div class="w-25">
-                  <img src="img/5-768x1024.jpg" alt="" class="img-thumbnail footer-item-img m-1">
+                  <img src="product_img/Komik_M.jpg" alt="" class="img-thumbnail footer-item-img m-1">
                 </div>
                 <div class="ml-2">
-                  <p class="mx-2 item-text">KEMBALI KEPADA JAWI : PANDAI MEMBACA DAN MENULIS JAWI DALAM MASA 20 JAM</p>
-                  <p class="mx-2 fw-bold">RM5.00</p>
+                  <p class="mx-2 item-text">Filosofi Rerama</p>
+                  <p class="mx-2 fw-bold">RM28.00</p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <!-- End of Item -->
+          <!-- Item -->
+          <a href="#" class="text-decoration-none text-black">
+            <div class="shadow-sm m-1">
+              <div class="d-flex">
+                <div class="w-25">
+                  <img src="product_img/islam_kata_isteri_bukan_bibik.png" alt="" class="img-thumbnail footer-item-img m-1">
+                </div>
+                <div class="ml-2">
+                  <p class="mx-2 item-text">Islam Kata Isteri Bukan Bibik</p>
+                  <p class="mx-2 fw-bold">RM20.00</p>
                 </div>
               </div>
             </div>
           </a>
           <!-- End of Item -->
         </div>
+        <!-- End if top eated --> 
       </div>
     </div>
   </section>
