@@ -207,6 +207,3 @@
 
 </html>
 
-<!-- cantikkan pustaka ILMIAH
-      button utk semua buku
-      button utk semua kategori
